@@ -4,7 +4,7 @@ import jute;
 
 namespace sipng {
   extern "C++" void deleter(char *);
-  extern "C++" char * load_native(unsigned * w, unsigned * h);
+  extern "C++" char * load_native(unsigned * w, unsigned * h, const char * fn, unsigned fns);
 
   export struct image {
     unsigned width;
@@ -14,7 +14,7 @@ namespace sipng {
 
   export image load(jute::view file) {
     image res {
-      .data = { load_native(&res.width, &res.height) },
+      .data = { load_native(&res.width, &res.height, file.begin(), file.size()) },
     };
     return res;
   }
